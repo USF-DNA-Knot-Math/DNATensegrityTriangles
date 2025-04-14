@@ -1,0 +1,984 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     36815,        976]
+NotebookOptionsPosition[     35483,        951]
+NotebookOutlinePosition[     35908,        968]
+CellTagsIndexPosition[     35865,        965]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[StyleBox["To execute all the code, select all, then press \
+\[OpenCurlyDoubleQuote]Shift+Return\[CloseCurlyDoubleQuote]. \nThis file was \
+written in Mathematica 13.1, and checked as backward compatible with version \
+12.3.",
+ FontSize->10]], "Text",
+ CellChangeTimes->{{3.902956370390315*^9, 
+  3.902956428013392*^9}},ExpressionUUID->"f7cdf9c8-8537-422d-92a3-\
+5600188a83dc"],
+
+Cell[BoxData[
+ RowBox[{"ClearAll", "[", "\"\<Global'*\>\"", "]"}]], "Input",
+ CellLabel->
+  "In[3156]:=",ExpressionUUID->"8fda798e-f1d4-4899-8838-bc2f216d4a40"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"alpha", "=", 
+   RowBox[{"3.4", "/", 
+    RowBox[{"(", 
+     RowBox[{"2", "Pi"}], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"beta", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"moveInitialPoint", "[", "P_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "newP", "}"}], ",", 
+    RowBox[{
+     RowBox[{"newP", "=", "P"}], ";", " ", 
+     RowBox[{
+      RowBox[{"newP", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "=", 
+      RowBox[{
+       RowBox[{"P", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "-", "1"}]}], ";", " ", "newP"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"eqTri", "[", "x2_", "]"}], ":=", 
+  RowBox[{"Simplify", "[", 
+   RowBox[{"NSolve", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"0", "-", "x3"}], ")"}], "^", "2"}], "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"0", "-", "y3"}], ")"}], "^", "2"}]}], "==", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"0", "-", "x2"}], ")"}], "^", "2"}]}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"x2", "-", "x3"}], ")"}], "^", "2"}], "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"0", "-", "y3"}], ")"}], "^", "2"}]}], "==", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"0", "-", "x2"}], ")"}], "^", "2"}]}], ",", " ", 
+       RowBox[{"y3", ">", "0"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x3", ",", "y3"}], "}"}]}], "]"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"h", "=", "10.1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"n", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"r", "[", "t_", "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"alpha", "*", "t"}], ",", 
+    RowBox[{"Cos", "[", 
+     RowBox[{"beta", " ", "*", "t"}], "]"}], ",", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"beta", "*", " ", "t"}], "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"s", "[", "t_", "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"alpha", "*", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"2", "Pi", "*", 
+        RowBox[{"n", "/", "h"}]}], "-", "t"}], ")"}]}], ",", 
+    RowBox[{"-", 
+     RowBox[{"Cos", "[", 
+      RowBox[{"beta", "*", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"2", "Pi", "*", 
+          RowBox[{"n", "/", "h"}]}], "-", "t"}], ")"}]}], "]"}]}], ",", 
+    RowBox[{"-", 
+     RowBox[{"Sin", "[", 
+      RowBox[{"beta", "*", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"2", "Pi", "*", 
+          RowBox[{"n", "/", "h"}]}], "-", "t"}], ")"}]}], "]"}]}]}], 
+   "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"L", "[", 
+   RowBox[{"m_", ",", " ", "k_"}], "]"}], ":=", 
+  RowBox[{"2", "Pi", "*", 
+   RowBox[{"m", "/", "k"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tauX", "[", "n1_", "]"}], ":=", 
+  RowBox[{"alpha", "*", 
+   RowBox[{"L", "[", 
+    RowBox[{"n1", ",", "h"}], "]"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tauY", "[", "n1_", "]"}], ":=", 
+  RowBox[{"Cos", "[", 
+   RowBox[{"beta", "*", 
+    RowBox[{"L", "[", 
+     RowBox[{"n1", ",", " ", "h"}], "]"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tauZ", "[", "n1_", "]"}], ":=", 
+  RowBox[{"Sin", "[", 
+   RowBox[{"beta", "*", 
+    RowBox[{"L", "[", 
+     RowBox[{"n1", ",", "h"}], "]"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.891607046537107*^9, 3.891607093753027*^9}, {
+  3.901636837642435*^9, 3.90163684542864*^9}, {3.9016605926518507`*^9, 
+  3.901660593427649*^9}, {3.901828797825745*^9, 3.901828797945257*^9}, {
+  3.902955754868597*^9, 3.902955783967387*^9}, {3.902997187705956*^9, 
+  3.902997189667054*^9}},ExpressionUUID->"1acc7dd9-115b-4a06-a3ee-\
+4d695d3a8077"],
+
+Cell[TextData[{
+ StyleBox["The program below calculate Tilt level. ",
+  FontWeight->"Bold"],
+ "\n",
+ StyleBox["Run the program by placing your cursor within its source, then \
+press \[OpenCurlyDoubleQuote]Shift + Return\[CloseCurlyDoubleQuote].\nAn \
+example to call the program afterwards is, ",
+  FontSize->10],
+ StyleBox["VaryEtaFindTilt[7, 0, 360, 10], ",
+  FontSize->10,
+  FontSlant->"Italic"],
+ StyleBox["which calculate Tilt level in the case n=7 for et=0 to et=360 at \
+every increment of 10 degrees.",
+  FontSize->10]
+}], "Text",
+ CellChangeTimes->{{3.902956100972597*^9, 3.9029563174217043`*^9}, {
+  3.902956366724372*^9, 
+  3.902956367543921*^9}},ExpressionUUID->"35d0a451-1380-4677-97e0-\
+f62e3a5c3de1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"VaryEtaFindTilt", "[", 
+   RowBox[{"baselength_", ",", " ", "etS_", ",", " ", "etE_", ",", "etI_"}], 
+   "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"angleT0", ",", "angleT1", ",", "tilt", ",", 
+      RowBox[{"resList", "=", 
+       RowBox[{"{", "}"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"angleT0", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"tauZ", "[", "baselength", "]"}], "/", 
+         RowBox[{"tauX", "[", "baselength", "]"}]}], ")"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"angleT1", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"tauY", "[", "baselength", "]"}]}], "+", "1"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"tauX", "[", "baselength", "]"}], "*", 
+           RowBox[{"Cos", "[", "angleT0", "]"}]}], "+", 
+          RowBox[{
+           RowBox[{"Sin", "[", "angleT0", "]"}], "*", 
+           RowBox[{"tauZ", "[", "baselength", "]"}]}]}], ")"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"r5", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT0", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "1", ",", " ", "0"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"r6", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"et", "=", "etS"}], ",", 
+       RowBox[{"et", "<", "etE"}], ",", " ", 
+       RowBox[{"et", "+=", "etI"}], ",", " ", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"etRotate", "=", 
+         RowBox[{"RotationTransform", "[", 
+          RowBox[{
+           RowBox[{"et", " ", "Degree"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}]}], ";", " ", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+           "Tilt", " ", "level", " ", "is", " ", "defined", " ", "as", " ", 
+            "the", " ", "z"}], "-", 
+           RowBox[{
+           "component", " ", "of", " ", "the", " ", "terminal", " ", "point", 
+            " ", "minus", " ", "that", " ", "of", " ", "the", " ", "initial", 
+            " ", "point", " ", "of", " ", "C_", "1"}]}], ",", " ", 
+          RowBox[{
+          "adjusted", " ", "to", " ", "the", " ", "basepair", " ", 
+           "length"}]}], "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"tilt", "=", 
+         RowBox[{"N", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"etRotate", "[", 
+             RowBox[{"r6", "[", 
+              RowBox[{"r5", "[", 
+               RowBox[{"moveInitialPoint", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"2", "Pi", "*", 
+                   RowBox[{"baselength", "/", "h"}]}], ",", " ", 
+                  RowBox[{"-", "1"}], ",", " ", "0"}], "}"}], "]"}], "]"}], 
+              "]"}], "]"}], "[", 
+            RowBox[{"[", "3", "]"}], "]"}], "-", 
+           RowBox[{
+            RowBox[{"etRotate", "[", 
+             RowBox[{"r6", "[", 
+              RowBox[{"r5", "[", 
+               RowBox[{"moveInitialPoint", "[", 
+                RowBox[{"{", 
+                 RowBox[{"0", ",", 
+                  RowBox[{"-", "1"}], ",", "0"}], "}"}], "]"}], "]"}], "]"}], 
+             "]"}], "[", 
+            RowBox[{"[", "3", "]"}], "]"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"resList", ",", 
+          RowBox[{"{", 
+           RowBox[{"et", ",", " ", 
+            RowBox[{"tilt", "+", 
+             RowBox[{"tilt", "/", "baselength"}]}]}], "}"}]}], " ", "]"}]}]}],
+       "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{
+      "Change", " ", "to", " ", "your", " ", "desired", " ", "location", " ", 
+       "for", " ", "exporting", " ", "the", " ", "result"}], "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+       "\"\</Users/van/Documents/Triangles/RawOut-h=10.1alpha34/newtilt-n=\>\"\
+", "<>", 
+        RowBox[{"ToString", "[", "baselength", "]"}], "<>", "\"\<.txt\>\""}], 
+       ",", " ", "resList"}], "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.902955812261858*^9, 3.902955837996044*^9}, {
+   3.9029558846390343`*^9, 3.9029559830845747`*^9}, {3.902956021731008*^9, 
+   3.902956057503196*^9}, 
+   3.9029573432657127`*^9},ExpressionUUID->"699640bc-3909-480e-9f29-\
+46de4628f597"],
+
+Cell[TextData[{
+ StyleBox["The program below computes smoothness at vertex connection in the \
+center strand loop.\n",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox["An example to call the program after executing it is,",
+  FontSize->10],
+ StyleBox[" ComputeSmoothnessAll[7, 0, 360, 10],",
+  FontSize->10,
+  FontSlant->"Italic"],
+ StyleBox[" which computes smoothness of center strand for 2T7 from 0 to 360 \
+degrees at every 10 degree rotation.",
+  FontSize->10]
+}], "Text",
+ CellChangeTimes->{{3.902956818987764*^9, 3.9029568395525007`*^9}, {
+  3.902956878657383*^9, 
+  3.9029569533306293`*^9}},ExpressionUUID->"50130d48-5458-42a9-ac1b-\
+bbd66605dcea"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ComputeSmoothnessAll", "[", 
+   RowBox[{"baselength_", ",", " ", "etS_", ",", " ", "etE_", ",", "etI_"}], 
+   "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "angleT0", ",", "angleT1", ",", " ", "crProd", ",", " ", "dtProd", ",", 
+      RowBox[{"resultList", "=", 
+       RowBox[{"{", "}"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"angleT0", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"tauZ", "[", "baselength", "]"}], "/", 
+         RowBox[{"tauX", "[", "baselength", "]"}]}], ")"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"angleT1", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"tauY", "[", "baselength", "]"}]}], "+", "1"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"tauX", "[", "baselength", "]"}], "*", 
+           RowBox[{"Cos", "[", "angleT0", "]"}]}], "+", 
+          RowBox[{
+           RowBox[{"Sin", "[", "angleT0", "]"}], "*", 
+           RowBox[{"tauZ", "[", "baselength", "]"}]}]}], ")"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"r5", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT0", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "1", ",", " ", "0"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"r6", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"thirdVertex", "=", 
+      RowBox[{"eqTri", "[", 
+       RowBox[{
+        RowBox[{"r6", "[", 
+         RowBox[{"r5", "[", 
+          RowBox[{"moveInitialPoint", "[", 
+           RowBox[{"r", "[", 
+            RowBox[{"2", "Pi", "*", 
+             RowBox[{"baselength", "/", "h"}]}], "]"}], "]"}], "]"}], "]"}], 
+        "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"tri12", "=", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Simplify", "[", 
+            RowBox[{"r6", "[", 
+             RowBox[{"r5", "[", 
+              RowBox[{"moveInitialPoint", "[", 
+               RowBox[{"r", "[", 
+                RowBox[{"2", "Pi", "*", 
+                 RowBox[{"baselength", "/", "h"}]}], "]"}], "]"}], "]"}], 
+             "]"}], "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", " ", "0"}], " ", "}"}], ",", 
+        " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Values", "[", 
+           RowBox[{
+            RowBox[{"thirdVertex", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
+          RowBox[{"Values", "[", 
+           RowBox[{
+            RowBox[{"thirdVertex", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "}"}]}], "}"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"centerpt12", "=", 
+      RowBox[{"TriangleCenter", "[", 
+       RowBox[{"tri12", ",", "\"\<Incenter\>\""}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"C2byTriCenter", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{
+        RowBox[{"2", 
+         RowBox[{"Pi", "/", "3"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"centerpt12", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", 
+          RowBox[{"centerpt12", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], ",", " ", "0"}], "}"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"et", "=", "etS"}], ",", 
+       RowBox[{"et", "<", "etE"}], ",", " ", 
+       RowBox[{"et", "+=", "etI"}], ",", " ", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"etRotate", "=", 
+         RowBox[{"RotationTransform", "[", 
+          RowBox[{
+           RowBox[{"et", " ", "Degree"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}]}], ";", " ", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Unit", " ", "tangent", " ", "vector", " ", "at", " ", "the", " ", 
+          "end", " ", "of", " ", "C1"}], "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"uEt1", "[", "t_", "]"}], "=", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"etRotate", "[", 
+             RowBox[{"r6", "[", 
+              RowBox[{"r5", "[", 
+               RowBox[{"moveInitialPoint", "[", 
+                RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], ",",
+             "t"}], "]"}], "/", 
+          RowBox[{"Norm", "[", 
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"etRotate", "[", 
+              RowBox[{"r6", "[", 
+               RowBox[{"r5", "[", 
+                RowBox[{"moveInitialPoint", "[", 
+                 RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], 
+             ",", "t"}], "]"}], "]"}]}]}], " ", ";", "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Unit", " ", "tangent", " ", "vector", " ", "at", " ", "the", " ", 
+          "beginning", " ", "of", " ", "C2"}], "*)"}], "\[IndentingNewLine]", 
+        
+        RowBox[{
+         RowBox[{"vT", "[", "t_", "]"}], "=", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"C2byTriCenter", "[", 
+             RowBox[{"etRotate", "[", 
+              RowBox[{"r6", "[", 
+               RowBox[{"r5", "[", 
+                RowBox[{"moveInitialPoint", "[", 
+                 RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], 
+             "]"}], ",", "t"}], "]"}], "/", 
+          RowBox[{"Norm", "[", 
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"C2byTriCenter", "[", 
+              RowBox[{"etRotate", "[", 
+               RowBox[{"r6", "[", 
+                RowBox[{"r5", "[", 
+                 RowBox[{"moveInitialPoint", "[", 
+                  RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], 
+              "]"}], ",", "t"}], "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+         "This", " ", "cross", " ", "product", " ", "defines", " ", 
+          "Smoothness"}], "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"crProd", "=", 
+         RowBox[{"N", "[", 
+          RowBox[{"Norm", "[", 
+           RowBox[{"Cross", "[", 
+            RowBox[{
+             RowBox[{"uEt1", "[", 
+              RowBox[{"2", "Pi", "*", 
+               RowBox[{"baselength", "/", "h"}]}], "]"}], ",", " ", 
+             RowBox[{"vT", "[", "0", "]"}]}], "]"}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"dtProd", "=", 
+         RowBox[{"N", "[", 
+          RowBox[{"Dot", "[", 
+           RowBox[{
+            RowBox[{"uEt1", "[", 
+             RowBox[{"2", "Pi", "*", 
+              RowBox[{"baselength", "/", "h"}]}], "]"}], ",", " ", 
+            RowBox[{"vT", "[", "0", "]"}]}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"resultList", ",", 
+          RowBox[{"{", 
+           RowBox[{"et", ",", "dtProd", ",", "crProd"}], "}"}]}], " ", 
+         "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+       "\"\</Users/van/Documents/Triangles/RawOut-h=10.1alpha34/ec1ic2-All-n=\
+\>\"", "<>", 
+        RowBox[{"ToString", "[", "baselength", "]"}], "<>", "\"\<.txt\>\""}], 
+       ",", " ", "resultList"}], "]"}]}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.9029565863501177`*^9, 3.9029566776718693`*^9}, {
+   3.9029567897207403`*^9, 3.902956800409086*^9}, 
+   3.902957348908723*^9},ExpressionUUID->"5b84159f-3df1-464a-b6eb-\
+d7c0bebd843d"],
+
+Cell[TextData[{
+ StyleBox["The program below computes smoothness at vertex connection in the \
+center strand loop, restricted to the set Phi, which means the purple graph \
+in Appendix A.\n",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox["An example to call the program after executing it is,",
+  FontSize->10],
+ StyleBox[" ComputeSmoothnessPurple[7, 0, 360, 10],",
+  FontSize->10,
+  FontSlant->"Italic"],
+ StyleBox[" which computes smoothness of center strand for 2T7 from 0 to 360 \
+degrees at every 10 degree rotation, only if the dot product between the \
+vectors is positive.",
+  FontSize->10]
+}], "Text",
+ CellChangeTimes->{{3.902956974551263*^9, 
+  3.9029570484194927`*^9}},ExpressionUUID->"b5deab57-b745-48eb-9d3a-\
+a6d0657c1146"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ComputeSmoothnessPurple", "[", 
+   RowBox[{"baselength_", ",", " ", "etS_", ",", " ", "etE_", ",", "etI_"}], 
+   "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "angleT0", ",", "angleT1", ",", " ", "crProd", ",", " ", "dtProd", ",", 
+      RowBox[{"resultList", "=", 
+       RowBox[{"{", "}"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"angleT0", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"tauZ", "[", "baselength", "]"}], "/", 
+         RowBox[{"tauX", "[", "baselength", "]"}]}], ")"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"angleT1", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"tauY", "[", "baselength", "]"}]}], "+", "1"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"tauX", "[", "baselength", "]"}], "*", 
+           RowBox[{"Cos", "[", "angleT0", "]"}]}], "+", 
+          RowBox[{
+           RowBox[{"Sin", "[", "angleT0", "]"}], "*", 
+           RowBox[{"tauZ", "[", "baselength", "]"}]}]}], ")"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"r5", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT0", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "1", ",", " ", "0"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"r6", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"thirdVertex", "=", 
+      RowBox[{"eqTri", "[", 
+       RowBox[{
+        RowBox[{"r6", "[", 
+         RowBox[{"r5", "[", 
+          RowBox[{"moveInitialPoint", "[", 
+           RowBox[{"r", "[", 
+            RowBox[{"2", "Pi", "*", 
+             RowBox[{"baselength", "/", "h"}]}], "]"}], "]"}], "]"}], "]"}], 
+        "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"tri12", "=", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Simplify", "[", 
+            RowBox[{"r6", "[", 
+             RowBox[{"r5", "[", 
+              RowBox[{"moveInitialPoint", "[", 
+               RowBox[{"r", "[", 
+                RowBox[{"2", "Pi", "*", 
+                 RowBox[{"baselength", "/", "h"}]}], "]"}], "]"}], "]"}], 
+             "]"}], "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", " ", "0"}], " ", "}"}], ",", 
+        " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Values", "[", 
+           RowBox[{
+            RowBox[{"thirdVertex", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
+          RowBox[{"Values", "[", 
+           RowBox[{
+            RowBox[{"thirdVertex", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "}"}]}], "}"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"centerpt12", "=", 
+      RowBox[{"TriangleCenter", "[", 
+       RowBox[{"tri12", ",", "\"\<Incenter\>\""}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"C2byTriCenter", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{
+        RowBox[{"2", 
+         RowBox[{"Pi", "/", "3"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"centerpt12", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", 
+          RowBox[{"centerpt12", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], ",", " ", "0"}], "}"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"et", "=", "etS"}], ",", 
+       RowBox[{"et", "<", "etE"}], ",", " ", 
+       RowBox[{"et", "+=", "etI"}], ",", " ", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"etRotate", "=", 
+         RowBox[{"RotationTransform", "[", 
+          RowBox[{
+           RowBox[{"et", " ", "Degree"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}]}], ";", " ", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Unit", " ", "tangent", " ", "vector", " ", "at", " ", "the", " ", 
+          "end", " ", "of", " ", "C1"}], "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"uEt1", "[", "t_", "]"}], "=", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"etRotate", "[", 
+             RowBox[{"r6", "[", 
+              RowBox[{"r5", "[", 
+               RowBox[{"moveInitialPoint", "[", 
+                RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], ",",
+             "t"}], "]"}], "/", 
+          RowBox[{"Norm", "[", 
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"etRotate", "[", 
+              RowBox[{"r6", "[", 
+               RowBox[{"r5", "[", 
+                RowBox[{"moveInitialPoint", "[", 
+                 RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], 
+             ",", "t"}], "]"}], "]"}]}]}], " ", ";", "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Unit", " ", "tangent", " ", "vector", " ", "at", " ", "the", " ", 
+          "beginning", " ", "of", " ", "C2"}], "*)"}], "\[IndentingNewLine]", 
+        
+        RowBox[{
+         RowBox[{"vT", "[", "t_", "]"}], "=", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"C2byTriCenter", "[", 
+             RowBox[{"etRotate", "[", 
+              RowBox[{"r6", "[", 
+               RowBox[{"r5", "[", 
+                RowBox[{"moveInitialPoint", "[", 
+                 RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], 
+             "]"}], ",", "t"}], "]"}], "/", 
+          RowBox[{"Norm", "[", 
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"C2byTriCenter", "[", 
+              RowBox[{"etRotate", "[", 
+               RowBox[{"r6", "[", 
+                RowBox[{"r5", "[", 
+                 RowBox[{"moveInitialPoint", "[", 
+                  RowBox[{"r", "[", "t", "]"}], "]"}], "]"}], "]"}], "]"}], 
+              "]"}], ",", "t"}], "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"crProd", "=", 
+         RowBox[{"N", "[", 
+          RowBox[{"Norm", "[", 
+           RowBox[{"Cross", "[", 
+            RowBox[{
+             RowBox[{"uEt1", "[", 
+              RowBox[{"2", "Pi", "*", 
+               RowBox[{"baselength", "/", "h"}]}], "]"}], ",", " ", 
+             RowBox[{"vT", "[", "0", "]"}]}], "]"}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"dtProd", "=", 
+         RowBox[{"N", "[", 
+          RowBox[{"Dot", "[", 
+           RowBox[{
+            RowBox[{"uEt1", "[", 
+             RowBox[{"2", "Pi", "*", 
+              RowBox[{"baselength", "/", "h"}]}], "]"}], ",", " ", 
+            RowBox[{"vT", "[", "0", "]"}]}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Smoothness", " ", "calculation", " ", "is", " ", "restricted", " ", 
+          "to", " ", "the", " ", "set", " ", "Phi", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"in", " ", "Appendix", " ", "A"}], ")"}], "."}]}], "*)"}],
+         "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"dtProd", ">=", "0"}], ",", " ", 
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"resultList", ",", 
+            RowBox[{"{", 
+             RowBox[{"et", ",", "dtProd", ",", "crProd"}], "}"}]}], " ", 
+           "]"}]}], "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+       "\"\</Users/van/Documents/Triangles/RawOut-h=10.1alpha34/ec1ic2-purple-\
+n=\>\"", "<>", 
+        RowBox[{"ToString", "[", "baselength", "]"}], "<>", "\"\<.txt\>\""}], 
+       ",", " ", "resultList"}], "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.902956508851816*^9, 3.902956578258368*^9}, {
+   3.902956698955783*^9, 3.902956774521532*^9}, 
+   3.902957351285129*^9},ExpressionUUID->"73c9dd0d-1cf9-4859-8cbe-\
+484195641a0d"],
+
+Cell[TextData[{
+ StyleBox["The program below calculates the function D, internal cavity.",
+  FontWeight->"Bold"],
+ "\n",
+ StyleBox["An example to call it (after execution) is,",
+  FontSize->10],
+ StyleBox[" ComputeInternalCavity[7, 0, 360, 5],",
+  FontSize->10,
+  FontSlant->"Italic"],
+ StyleBox[" which calculates the distance from the triangle centroid to the \
+side of the cylinder that contains C_1.",
+  FontSize->10]
+}], "Text",
+ CellChangeTimes->{{3.902957147615777*^9, 
+  3.902957240850144*^9}},ExpressionUUID->"4aabdc29-0e6a-4e8e-8cc1-\
+f480ddce1b42"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ComputeInternalCavity", "[", 
+   RowBox[{"baselength_", ",", " ", "etS_", ",", " ", "etE_", ",", "etI_"}], 
+   "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"angleT0", ",", "angleT1", ",", 
+      RowBox[{"dis", "=", "0"}], ",", 
+      RowBox[{"resList", "=", 
+       RowBox[{"{", "}"}]}]}], "}"}], ",", "\n", "\n", 
+    RowBox[{
+     RowBox[{"angleT0", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"tauZ", "[", "baselength", "]"}], "/", 
+         RowBox[{"tauX", "[", "baselength", "]"}]}], ")"}], "]"}]}], ";", 
+     "\n", 
+     RowBox[{"angleT1", "=", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"tauY", "[", "baselength", "]"}]}], "+", "1"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"tauX", "[", "baselength", "]"}], "*", 
+           RowBox[{"Cos", "[", "angleT0", "]"}]}], "+", 
+          RowBox[{
+           RowBox[{"Sin", "[", "angleT0", "]"}], "*", 
+           RowBox[{"tauZ", "[", "baselength", "]"}]}]}], ")"}]}], "]"}]}], 
+     ";", "\n", 
+     RowBox[{"r5", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT0", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "1", ",", " ", "0"}], "}"}]}], "]"}]}], ";", 
+     "\n", 
+     RowBox[{"r6", "=", 
+      RowBox[{"RotationTransform", "[", 
+       RowBox[{"angleT1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "]"}]}], ";", 
+     "\n", 
+     RowBox[{"thirdVertex", "=", 
+      RowBox[{"eqTri", "[", 
+       RowBox[{
+        RowBox[{"r6", "[", 
+         RowBox[{"r5", "[", 
+          RowBox[{"moveInitialPoint", "[", 
+           RowBox[{"r", "[", 
+            RowBox[{"2", "Pi", "*", 
+             RowBox[{"baselength", "/", "h"}]}], "]"}], "]"}], "]"}], "]"}], 
+        "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ";", "\n", 
+     RowBox[{"tri12", "=", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Simplify", "[", 
+            RowBox[{"r6", "[", 
+             RowBox[{"r5", "[", 
+              RowBox[{"moveInitialPoint", "[", 
+               RowBox[{"r", "[", 
+                RowBox[{"2", "Pi", "*", 
+                 RowBox[{"baselength", "/", "h"}]}], "]"}], "]"}], "]"}], 
+             "]"}], "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", " ", "0"}], " ", "}"}], ",", 
+        " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Values", "[", 
+           RowBox[{
+            RowBox[{"thirdVertex", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
+          RowBox[{"Values", "[", 
+           RowBox[{
+            RowBox[{"thirdVertex", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "}"}]}], "}"}]}], ";", 
+     "\n", 
+     RowBox[{"centerpt12", "=", 
+      RowBox[{"TriangleCenter", "[", 
+       RowBox[{"tri12", ",", "\"\<Incenter\>\""}], "]"}]}], ";", "\n", "\n", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"et", "=", "etS"}], ",", 
+       RowBox[{"et", "<", "etE"}], ",", " ", 
+       RowBox[{"et", "+=", "etI"}], ",", " ", "\n", 
+       RowBox[{
+        RowBox[{"etRotate", "=", 
+         RowBox[{"RotationTransform", "[", 
+          RowBox[{
+           RowBox[{"et", " ", "Degree"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}]}], ";", " ", 
+        "\n", "\n", 
+        RowBox[{"dis", "=", 
+         RowBox[{"SignedRegionDistance", "[", 
+          RowBox[{
+           RowBox[{"Cylinder", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"etRotate", "[", 
+                RowBox[{"r6", "[", 
+                 RowBox[{"r5", "[", 
+                  RowBox[{"moveInitialPoint", "[", 
+                   RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "0", ",", " ", "0"}], "}"}], "]"}],
+                   "]"}], "]"}], "]"}], ",", 
+               RowBox[{"N", "[", 
+                RowBox[{"etRotate", "[", 
+                 RowBox[{"r6", "[", 
+                  RowBox[{"r5", "[", 
+                   RowBox[{"moveInitialPoint", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"2", "Pi", "*", 
+                    RowBox[{"baselength", "/", "h"}]}], ",", " ", "0", ",", 
+                    " ", "0"}], "}"}], "]"}], "]"}], "]"}], "]"}], "]"}]}], 
+              "}"}], ",", " ", "1"}], "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"centerpt12", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", 
+             RowBox[{"centerpt12", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], ",", " ", "0"}], "}"}]}], 
+          "]"}]}], ";", "\n", "\n", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"resList", ",", 
+          RowBox[{"{", 
+           RowBox[{"et", ",", "dis"}], "}"}]}], " ", "]"}]}]}], "\n", "\n", 
+      "]"}], ";", "\n", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+       "\"\</Users/van/Documents/Triangles/RawOut-h=10.1alpha34/cyl2cenSigned-\
+n=\>\"", "<>", 
+        RowBox[{"ToString", "[", "baselength", "]"}], "<>", "\"\<.txt\>\""}], 
+       ",", " ", "resList"}], "]"}]}]}], "\n", "\n", "]"}]}]], "Input",
+ CellChangeTimes->{{3.902957105356535*^9, 3.902957136177903*^9}, 
+   3.902957355827586*^9},ExpressionUUID->"dd33b23e-0279-44db-add9-\
+33e00b927fd4"]
+},
+WindowSize->{1185, 803},
+WindowMargins->{{Automatic, 135}, {-92, Automatic}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"c58b0806-715b-4f49-b947-80e1e44cff26"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 390, 7, 68, "Text",ExpressionUUID->"f7cdf9c8-8537-422d-92a3-5600188a83dc"],
+Cell[951, 29, 160, 3, 46, "Input",ExpressionUUID->"8fda798e-f1d4-4899-8838-bc2f216d4a40"],
+Cell[1114, 34, 3899, 119, 450, "Input",ExpressionUUID->"1acc7dd9-115b-4a06-a3ee-4d695d3a8077"],
+Cell[5016, 155, 715, 18, 102, "Text",ExpressionUUID->"35d0a451-1380-4677-97e0-f62e3a5c3de1"],
+Cell[5734, 175, 4979, 125, 822, "Input",ExpressionUUID->"699640bc-3909-480e-9f29-46de4628f597"],
+Cell[10716, 302, 657, 17, 99, "Text",ExpressionUUID->"50130d48-5458-42a9-ac1b-bbd66605dcea"],
+Cell[11376, 321, 8405, 214, 1194, "Input",ExpressionUUID->"5b84159f-3df1-464a-b6eb-d7c0bebd843d"],
+Cell[19784, 537, 741, 18, 131, "Text",ExpressionUUID->"b5deab57-b745-48eb-9d3a-a6d0657c1146"],
+Cell[20528, 557, 8665, 221, 1163, "Input",ExpressionUUID->"73c9dd0d-1cf9-4859-8cbe-484195641a0d"],
+Cell[29196, 780, 559, 15, 102, "Text",ExpressionUUID->"4aabdc29-0e6a-4e8e-8cc1-f480ddce1b42"],
+Cell[29758, 797, 5721, 152, 915, "Input",ExpressionUUID->"dd33b23e-0279-44db-add9-33e00b927fd4"]
+}
+]
+*)
+
